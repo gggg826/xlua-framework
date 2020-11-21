@@ -249,6 +249,13 @@ function GetCheckStatement(t, idx, is_v_params)
     return cond_start .. (fixChecker[testname] or ("translator.Assignable<" .. CsFullTypeName(t).. ">")) .. "(L, ".. idx ..")" .. cond_end
 end
 
+function GetCheckDefaultValue(t)
+    if t.IsArray then
+        return "= null"
+    end
+    return ""
+end
+
 local delegateType = typeof(CS.System.Delegate)
 local ExtensionAttribute = typeof(CS.System.Runtime.CompilerServices.ExtensionAttribute)
 function MethodParameters(method)

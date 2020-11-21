@@ -412,7 +412,7 @@ namespace XLua.CSObjectWrap
                         %><%if parameter.IsIn or not parameter.IsOut then 
                             in_pos = in_pos + 1
                         %><%=GetCasterStatement(parameter.ParameterType, in_pos+param_offset, parameter.Name, true, has_v_params and pi == param_count - 1)%><%
-					    else%><%=CsFullTypeName(parameter.ParameterType)%> <%=parameter.Name%><%end%>;
+					    else%><%=CsFullTypeName(parameter.ParameterType)%> <%=parameter.Name%> <%=GetCheckDefaultValue(parameter.ParameterType)%><%end%>;
                     <%end)%>
                     <%
                     if has_return then
