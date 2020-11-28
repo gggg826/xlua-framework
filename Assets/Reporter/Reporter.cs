@@ -366,7 +366,8 @@ public class Reporter : MonoBehaviour {
 		showWarning = (PlayerPrefs.GetInt( "Reporter_showWarning" ,1) ==1)?true:false;
 		showError 	= (PlayerPrefs.GetInt( "Reporter_showError" ,1) ==1)?true:false;
 		filterText  = PlayerPrefs.GetString("Reporter_filterText");
-		size.x = size.y = PlayerPrefs.GetFloat( "Reporter_size" , 32 );
+		float ratio = Screen.width / 2560.0f;
+		size.x = size.y = PlayerPrefs.GetFloat( "Reporter_size" , 70 * ratio );
 
 
 		showClearOnNewSceneLoadedButton 		= (PlayerPrefs.GetInt( "Reporter_showClearOnNewSceneLoadedButton" ,1)==1)?true:false;
@@ -839,7 +840,7 @@ public class Reporter : MonoBehaviour {
 		GUILayout.Space( size.x);
 		GUILayout.Label( "Size = "  + size.x.ToString("0.0") , nonStyle , GUILayout.Height(size.y));
 		GUILayout.Space( size.x);
-		float _size = GUILayout.HorizontalSlider( size.x , 16 , 64 ,sliderBackStyle,sliderThumbStyle, GUILayout.Width( Screen.width * 0.5f) ) ;
+		float _size = GUILayout.HorizontalSlider( size.x , 16 , 80 ,sliderBackStyle,sliderThumbStyle, GUILayout.Width( Screen.width * 0.5f) ) ;
 		if( size.x != _size )
 		{
 			size.x = size.y = _size;
