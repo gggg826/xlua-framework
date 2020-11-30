@@ -362,22 +362,38 @@ public class PackageUtils
         string resPath = Path.Combine(channelPath, "UnityCallAndroid_" + channelName);
         if (!Directory.Exists(resPath))
         {
-            resPath = Path.Combine(channelPath, "UnityCallAndroid");
+            //resPath = Path.Combine(channelPath, "UnityCallAndroid");
+            resPath = Path.Combine(channelPath, "SDKBuildFiles");
         }
 
-        EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 0f);
-        PackageUtils.CopyJavaFolder(resPath + "/assets", targetPath + "/assets");
-        EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 0.3f);
-        PackageUtils.CopyJavaFolder(resPath + "/libs", targetPath + "/libs");
-        EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 0.6f);
-        PackageUtils.CopyJavaFolder(resPath + "/res", targetPath + "/res");
-        if (File.Exists(resPath + "/bin/UnityCallAndroid.jar"))
+        //EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 0f);
+        //PackageUtils.CopyJavaFolder(resPath + "/assets", targetPath + "/assets");
+        //EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 0.3f);
+        //PackageUtils.CopyJavaFolder(resPath + "/libs", targetPath + "/libs");
+        //EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 0.6f);
+        //PackageUtils.CopyJavaFolder(resPath + "/res", targetPath + "/res");
+        //if (File.Exists(resPath + "/bin/UnityCallAndroid.jar"))
+        //{
+        //    File.Copy(resPath + "/bin/UnityCallAndroid.jar", targetPath + "/libs/UnityCallAndroid.jar", true);
+        //}
+        //if (File.Exists(resPath + "/AndroidManifest.xml"))
+        //{
+        //    File.Copy(resPath + "/AndroidManifest.xml", targetPath + "/AndroidManifest.xml", true);
+        //}
+
+        string[] fileNameList = Directory.GetFiles(resPath);
+        if(fileNameList == null || fileNameList.Length == 0)
         {
-            File.Copy(resPath + "/bin/UnityCallAndroid.jar", targetPath + "/libs/UnityCallAndroid.jar", true);
+            return;
         }
-        if (File.Exists(resPath + "/AndroidManifest.xml"))
+        int count = fileNameList.Length;
+        float per = 1.0f / count;
+
+        for (int i = 0; i < count; i++)
         {
-            File.Copy(resPath + "/AndroidManifest.xml", targetPath + "/AndroidManifest.xml", true);
+            string fileName = fileNameList[i];
+            EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", i * per);
+            File.Copy(fileName, $"{targetPath}/{Path.GetFileName(fileName)}", true);
         }
 
         EditorUtility.DisplayProgressBar("提示", "正在拷贝SDK资源，请稍等", 1f);
